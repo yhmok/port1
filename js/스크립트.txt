@@ -1,0 +1,91 @@
+<script>
+        $(function(){
+            //오픈시 무조건 화면 위치를 맨 위로 가져간다.
+//            $("body, html").stop().animate({"scrollTop":0}, 500);
+            var size = $('body').width();
+
+            if (size > 1390) {
+                $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:760});
+            } else if (850 < size && size <= 1389){
+                $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:560});
+            } else if (500 < size && size <= 849){                               
+                $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:456});
+            } else if (size <= 500){  
+                console.log("aaaa");
+                $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:300});
+            };
+
+            $(window).resize(function(){
+                var size = $('body').width();
+                
+                if (size > 1390) {
+                    $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:760});
+                } else if (850 < size && size <= 1389){
+                    $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:560});
+                } else if (500 < size && size <= 849){                               
+                    $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:456});
+                } else if (size <= 500){                               
+                    $(".portfolio_btn").colorbox({iframe:true, innerWidth:'80%', innerHeight:300});
+                };
+            });
+            //현재 스크롤 위치를 찾아서 메뉴 색깔을 바꿔준다.
+            $(window).scroll(function(){
+                var ht = $(window).height();
+                var scroll = $(window).scrollTop();
+
+                if(scroll>=ht*0 && scroll<ht*1){
+                    $("#navTop_box #topMenu li a").removeClass();
+                    $("#navTop_box #topMenu li").eq(0).find('a').addClass("active");
+                }
+                if(scroll>=ht*1 && scroll<ht*2){
+                    $("#navTop_box #topMenu li a").removeClass();
+                    $("#navTop_box #topMenu li").eq(1).find('a').addClass("active");
+                }
+                if(scroll>=ht*2 && scroll<ht*3){
+                    $("#navTop_box #topMenu li a").removeClass();
+                    $("#navTop_box #topMenu li").eq(2).find('a').addClass("active");
+                }
+                if(scroll>=ht*3 && scroll<ht*4){
+                    $("#navTop_box #topMenu li a").removeClass();
+                    $("#navTop_box #topMenu li").eq(3).find('a').addClass("active");
+                }
+            });
+        });
+        
+        $(function(){
+            let current = 0;
+            let banner = $(".slide");
+            let id = banner.length;
+            
+            $(".right_arrow").click(function(){
+                let prev = banner.eq(current);
+                move(prev, 0, '-100%');
+                
+                current++;
+                if(current == id){
+                    current=0;
+                }
+                let next = banner.eq(current);
+                move(next, '100%', 0);
+                
+            });
+            $(".left_arrow").click(function(){
+
+                let prev = banner.eq(current);
+                move(prev, 0, '100%');
+                
+                current--;
+                if(current < 0){
+                    current=id-1;
+                }
+                let next = banner.eq(current);
+                move(next, '-100%', 0);
+            });
+            
+            function move(tg, start, end){
+                tg.css('left', start)
+                .stop()
+                .animate({left:end}, 1000);
+            }
+        });
+    </script>
